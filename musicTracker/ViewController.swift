@@ -29,12 +29,26 @@ class ViewController: UIViewController {
     
     @objc func showMusicInfo() {
         if let music = player.nowPlayingItem {
-            if let title = music.title {
+            let title = music.title ?? ""
+            let artist = music.artist ?? ""
+            
+            if title != "" {
                 ttlArea.text = title
-                print(title)
             } else {
                 ttlArea.text = "---"
             }
+            sendData(title:title, artist: artist)
         }
+    }
+    func sendData(title:String, artist:String) {
+        let urlString = "http://localhost:8888/test/postTest.php"
+        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let param:[String:Any] = [
+            "title": title,
+            "artist": artist
+        ]
+        print(param)
     }
 }
