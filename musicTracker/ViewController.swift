@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     
     @IBAction func agreeBtn(_ sender: UISwitch) {
         canSendServer = sender.isOn
-        ttlArea.text = "値変わったよ"
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +27,7 @@ class ViewController: UIViewController {
     }
     
     @objc func showMusicInfo() {
+        if !canSendServer {return}
         if let music = player.nowPlayingItem {
             let title = music.title ?? ""
             let artist = music.artist ?? ""
